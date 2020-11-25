@@ -46,7 +46,7 @@ class ExprAritmetica implements Expression{
     }
 
     protected String makeArvore(String expr){
-        String arvore = "";
+        String arvore;
         //soma
         for(int i=expr.length()-1; i>=0; i--){
             if(expr.charAt(i) == '+'){
@@ -98,16 +98,28 @@ class ExprLogica implements Expression{
     }
 
     protected boolean getAvaliacao(String expr){
+        //diferente
+        for(int i=expr.length()-1; i>=0; i--){
+            if(expr.charAt(i) == '!' && expr.charAt(i+1) == '='){
+                return getAritmetica(expr.substring(0, i)) != getAritmetica(expr.substring(i+2, expr.length()));
+            }
+        }
+        //igual
+        for(int i=expr.length()-1; i>=0; i--){
+            if(expr.charAt(i) == '=' && expr.charAt(i+1) == '='){
+                return getAritmetica(expr.substring(0, i)) == getAritmetica(expr.substring(i+2, expr.length()));
+            }
+        }
         //maior ou igual
         for(int i=expr.length()-1; i>=0; i--){
             if(expr.charAt(i) == '>' && expr.charAt(i+1) == '='){
-                return getAritmetica(expr.substring(0, i)) >= getAritmetica(expr.substring(i+1, expr.length()));
+                return getAritmetica(expr.substring(0, i)) >= getAritmetica(expr.substring(i+2, expr.length()));
             }
         }
         //menor ou igual
         for(int i=expr.length()-1; i>=0; i--){
             if(expr.charAt(i) == '<' && expr.charAt(i+1) == '='){
-                return getAritmetica(expr.substring(0, i)) <= getAritmetica(expr.substring(i+1, expr.length()));
+                return getAritmetica(expr.substring(0, i)) <= getAritmetica(expr.substring(i+2, expr.length()));
             }
         }
         //maior que
@@ -132,17 +144,29 @@ class ExprLogica implements Expression{
     }
 
     protected String makeArvore(String expr){
-        String arvore = "";
+        String arvore;
+        //diferente
+        for(int i=expr.length()-1; i>=0; i--){
+            if(expr.charAt(i) == '!' && expr.charAt(i+1) == '='){
+                return arvore = "((" + getArvoreAritmetica(expr.substring(0, i)) + ')' + "!=" + '(' + getArvoreAritmetica(expr.substring(i+2, expr.length())) + "))";
+            }
+        }
+        //igual
+        for(int i=expr.length()-1; i>=0; i--){
+            if(expr.charAt(i) == '=' && expr.charAt(i+1) == '='){
+                return arvore = "((" + getArvoreAritmetica(expr.substring(0, i)) + ')' + "==" + '(' + getArvoreAritmetica(expr.substring(i+2, expr.length())) + "))";
+            }
+        }
         //maior ou igual
         for(int i=expr.length()-1; i>=0; i--){
             if(expr.charAt(i) == '>' && expr.charAt(i+1) == '='){
-                return arvore = "((" + getArvoreAritmetica(expr.substring(0, i)) + ')' + ">=" + '(' + getArvoreAritmetica(expr.substring(i+1, expr.length())) + "))";
+                return arvore = "((" + getArvoreAritmetica(expr.substring(0, i)) + ')' + ">=" + '(' + getArvoreAritmetica(expr.substring(i+2, expr.length())) + "))";
             }
         }
         //menor ou igual
         for(int i=expr.length()-1; i>=0; i--){
             if(expr.charAt(i) == '<' && expr.charAt(i+1) == '='){
-                return arvore = "((" + getArvoreAritmetica(expr.substring(0, i)) + ')' + "<=" + '(' + getArvoreAritmetica(expr.substring(i+1, expr.length())) + "))";
+                return arvore = "((" + getArvoreAritmetica(expr.substring(0, i)) + ')' + "<=" + '(' + getArvoreAritmetica(expr.substring(i+2, expr.length())) + "))";
             }
         }
         //maior que
@@ -178,6 +202,7 @@ class Main{
     }
     
     public static void main(String[] args) {
+        System.out.println("Insira uma expressao:");
         Scanner scanner = new Scanner(System.in);
         String expr = scanner.nextLine();
 
@@ -185,6 +210,7 @@ class Main{
         if(descobreTipoDeExpr(expr)){
             ExprLogica logic = new ExprLogica();
             logic.avaliar(expr);
+            System.out.println("passou");
             logic.imprimirArvore(expr);
         }
         //se eh aritmetica
