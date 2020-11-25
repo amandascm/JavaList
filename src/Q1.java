@@ -9,8 +9,8 @@ abstract class Livro{
 
 class LivroLivraria extends Livro{
     //mais atributos
-    private int quantidadeEmEstoque;
-    private float valor;
+    protected int quantidadeEmEstoque;
+    protected float valor;
 
     //construtor
     LivroLivraria(String titulo, String autorOuAutora, int edicao, int quantidadeEmEstoque, float valor){
@@ -21,16 +21,16 @@ class LivroLivraria extends Livro{
     }
 
     //metodos
-    public void getTitulo(){
+    public void printTitulo(){
         System.out.println(this.titulo);
     }
 }
 
 class LivroBiblioteca extends Livro{
     //mais atributos
-    private int quantidadeUnidades;
-    private int disponiveis;
-    private int emprestados;
+    protected int quantidadeUnidades;
+    protected int disponiveis;
+    protected int emprestados;
 
     //construtor
     LivroBiblioteca(String titulo, String autorOuAutora, int edicao, int quantidadeUnidades){
@@ -42,18 +42,19 @@ class LivroBiblioteca extends Livro{
     }
 
     //metodos
-    public void getDisponiveis(){
+    public void printDisponiveis(){
         System.out.println(this.disponiveis);
     }
 }
 
-class Q1{
+class Main{
     public static void main(String[] args) {
-        /*
+        
         LivroLivraria livro1 = new LivroLivraria("A Metamorfose", "Kafka", 2, 10, 40.5f);
-        livro1.getTitulo();
+        livro1.printTitulo();
+        System.out.println(livro1.valor);
         LivroBiblioteca livro2 = new LivroBiblioteca("Teses de Abril", "Lenin", 1, 5);
-        livro2.getDisponiveis();
-        */
+        livro2.printDisponiveis();
+        
     }
 }
