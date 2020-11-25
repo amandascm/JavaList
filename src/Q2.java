@@ -91,7 +91,7 @@ class Texto{
     }
 }
 
-public class Q2 {
+class Main {
     public static void main(String[] args) {
         String palavra;
 
