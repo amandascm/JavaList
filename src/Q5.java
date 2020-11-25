@@ -24,8 +24,8 @@ class Professor extends Pessoa{
         this.formacao = formacao;
     }
     //atributos
-    private String area;
-    private String formacao;
+    protected String area;
+    protected String formacao;
     //metodos
     protected void setNome(String nome){
         this.nome = nome;
@@ -39,6 +39,12 @@ class Professor extends Pessoa{
     protected void setFormacao(String formacao){
         this.formacao = formacao;
     }
+    protected String getArea(){
+        return this.area;
+    }
+    protected String getFormacao(){
+        return this.formacao;
+    }
 }
 
 class Aluno extends Pessoa{
@@ -50,8 +56,8 @@ class Aluno extends Pessoa{
         this.curso = curso;
     }
     //atributos
-    private String matricula;
-    private String curso;
+    protected String matricula;
+    protected String curso;
     //metodos
     protected void setNome(String nome){
         this.nome = nome;
@@ -65,12 +71,18 @@ class Aluno extends Pessoa{
     protected void setCurso(String curso){
         this.curso = curso;
     }
+    protected String getMatricula(){
+        return this.matricula;
+    }
+    protected String getCurso(){
+        return this.curso;
+    }
 }
 
 class ColecaoVetor implements Colecao{
     //atributos
-    private Pessoa[] dados;
-    private int vagas;
+    protected Pessoa[] dados;
+    protected int vagas;
     //construtor
     ColecaoVetor(){
         dados = new Pessoa[5];
@@ -80,11 +92,11 @@ class ColecaoVetor implements Colecao{
     public void inserir(Pessoa p){
         dados[dados.length - vagas] = p;
         vagas--;
-        System.out.println("Quantidade de vagas nao nulas na colecao: " + tamanhoColecaoNaoNull());
         System.out.println("Nome da pessoa inserida: " + p.getNome());
+        System.out.println("Quantidade de vagas de insercao na colecao: " + tamanhoColecaoNaoNull());
     }
     public int tamanhoColecaoNaoNull(){
-        return (dados.length - vagas);
+        return vagas;
     }
 }
 
@@ -98,7 +110,7 @@ class Main{
         //instancia da classe ColecaoVetor
         ColecaoVetor colecaoPessoas = new ColecaoVetor();
         //inserindo aluno Juliano
-        colecaoPessoas.inserir(new Aluno("Juliano", "099", "1224", "design"));
+        colecaoPessoas.inserir(new Aluno("Julia", "099", "1224", "design"));
         //inserindo aluna Maria
         colecaoPessoas.inserir(new Aluno("Maria", "580", "1239", "arquitetura"));
         //inserindo professora Katia
